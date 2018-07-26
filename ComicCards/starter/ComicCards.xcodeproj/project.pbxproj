@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3A1073D67C6B19EFFAACF9C2 /* Pods_ComicCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DFA27A0B388961C8792A77 /* Pods_ComicCards.framework */; };
+		59354C34210A520F00788DD7 /* Marvel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59354C33210A520F00788DD7 /* Marvel.swift */; };
+		59354C36210A5E6C00788DD7 /* Imgur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59354C35210A5E6C00788DD7 /* Imgur.swift */; };
 		5C2901831F8F6DE700803663 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */; };
 		7808ECB020879B320042B134 /* CoolStoryregular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7808ECAF20879B320042B134 /* CoolStoryregular.ttf */; };
 		7808ECB220879FEB0042B134 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7808ECB120879FEB0042B134 /* CardViewController.swift */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		18DFA27A0B388961C8792A77 /* Pods_ComicCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ComicCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		193BF8E93A4464BB845F6D29 /* Pods-ComicCards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ComicCards.release.xcconfig"; path = "Pods/Target Support Files/Pods-ComicCards/Pods-ComicCards.release.xcconfig"; sourceTree = "<group>"; };
+		59354C33210A520F00788DD7 /* Marvel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marvel.swift; sourceTree = "<group>"; };
+		59354C35210A5E6C00788DD7 /* Imgur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Imgur.swift; sourceTree = "<group>"; };
 		5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		770CA965231DFDB1C3D995A9 /* Pods-ComicCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ComicCards.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ComicCards/Pods-ComicCards.debug.xcconfig"; sourceTree = "<group>"; };
 		7808ECAF20879B320042B134 /* CoolStoryregular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoolStoryregular.ttf; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				78CBCC082082654600FBF930 /* CodableResponses.swift */,
+				59354C33210A520F00788DD7 /* Marvel.swift */,
+				59354C35210A5E6C00788DD7 /* Imgur.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -290,12 +296,14 @@
 				78CBCBFD20823E2700FBF930 /* ComicsViewController.swift in Sources */,
 				7808ECB620888D400042B134 /* UploadResult.swift in Sources */,
 				78CBCC0B20826AFF00FBF930 /* Date+ISO8601.swift in Sources */,
+				59354C34210A520F00788DD7 /* Marvel.swift in Sources */,
 				7808ECB220879FEB0042B134 /* CardViewController.swift in Sources */,
 				78CBCC092082654600FBF930 /* CodableResponses.swift in Sources */,
 				78CBCC0420825A8C00FBF930 /* Comic.swift in Sources */,
 				78597F4C20829A8500F7C6D8 /* Dictionary+Ext.swift in Sources */,
 				D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */,
 				78CBCC112082937800FBF930 /* ComicCell.swift in Sources */,
+				59354C36210A5E6C00788DD7 /* Imgur.swift in Sources */,
 				78CBCC0220824E3200FBF930 /* String+MD5.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

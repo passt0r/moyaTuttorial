@@ -55,6 +55,8 @@ class ComicsViewController: UIViewController {
       }
     }
   }
+  
+  let provider = MoyaProvider<Marvel>()
 
   // MARK: - Outlets
   @IBOutlet weak private var tblComics: UITableView!
@@ -65,7 +67,22 @@ class ComicsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    state = .error
+    state = .loading
+    provider.request(.comics) { [weak self] (result) in
+      guard let strongSelf = self else { return }
+      
+      switch result {
+        
+      case .success(let responce):
+        do {
+          strongSelf.state = .ready(try responce.map(MarvelResponse<Comic>.self).data.results)
+        } catch {
+          strongSelf.state = .error
+        }
+      case .failure(_):
+        strongSelf.state = .error
+      }
+    }
   }
 }
 

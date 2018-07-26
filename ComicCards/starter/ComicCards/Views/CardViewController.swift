@@ -33,6 +33,8 @@ import Moya
 
 class CardViewController: UIViewController {
   // - MARK: - Dependencies
+  private let provider = MoyaProvider<Imgur>()
+  private var uploadResult: UploadResult?
   private var comic: Comic?
 
   // - MARK: - Outlets
@@ -66,7 +68,16 @@ class CardViewController: UIViewController {
 // MARK: - Imgur handling
 extension CardViewController {
   private func layoutCard(comic: Comic) {
-
+    lblTitle.text = comic.title
+    lblDesc.text = comic.description ?? "Not available"
+    if comic.characters.items.isEmpty {
+      lblChars.text = "No characters"
+    } else {
+      lblChars.text = comic.characters.items.map { $0.name } .joined(separator: ", ")
+    }
+    
+    lblDate.text = dateFormatter.string(from: comic.onsaleDate)
+    image.kf.setImage(with: comic.thumbnail.url)
   }
 
   @IBAction private func uploadCard() {
@@ -77,10 +88,60 @@ extension CardViewController {
     }
 
     progressBar.progress = 0.0
+    
+    let card = snapCard()
+    
+    provider.request(.upload(card),
+                     callbackQueue: DispatchQueue.main,
+                     progress: { [weak self] progress in
+                      self?.progressBar.setProgress(Float(progress.progress), animated: true)
+    }) { [weak self] response in
+      guard let strongSelf = self else { return }
+      UIView.animate(withDuration: 0.15) {
+        strongSelf.viewUpload.alpha = 0.0
+        strongSelf.btnShare.alpha = 0.0
+      }
+      
+      switch response {
+      case .success(let result):
+        do {
+          let upload = try result.map(ImgurResponse<UploadResult>.self)
+          strongSelf.uploadResult = upload.data
+          strongSelf.btnDelete.alpha = 1.0
+          
+          strongSelf.presentShare(image: card, url: upload.data.link)
+        } catch {
+          strongSelf.presentError()
+        }
+      case .failure(_):
+        strongSelf.presentError()
+      }
+    }
   }
 
   @IBAction private func deleteCard() {
-
+    guard let uploadResult = uploadResult else { return }
+    btnDelete.isEnabled = false
+    provider.request(.delete(uploadResult.deletehash)) { [weak self] (response) in
+      guard let strongSelf = self else { return }
+      
+      let message: String
+      
+      // 3
+      switch response {
+      case .success:
+        message = "Deleted successfully!"
+        strongSelf.btnDelete.alpha = 0.0
+      case .failure:
+        message = "Failed deleting card! Try again later."
+        strongSelf.btnDelete.isEnabled = true
+      }
+      
+      let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "Done", style: .cancel))
+      
+      strongSelf.present(alert, animated: true, completion: nil)
+    }
   }
 }
 
